@@ -1,0 +1,62 @@
+using FluentAssertions;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+
+namespace TestAutomation.test.Inicio
+{
+
+    [TestFixture]
+    public class TestBasicos
+    {
+        [Test]
+        public void TestBasicWebPage()
+        {
+            
+            var driver = new ChromeDriver();
+            driver.Manage().Window.Maximize();
+            driver.Url = "https://curso.testautomation.es";
+            var normalLoadDriver = driver.FindElement(By.Id("NormalWeb"));
+            normalLoadDriver.Click();
+            var titulo = driver.FindElement(By.CssSelector("h1"));
+
+            titulo.Text.Should().Be("Normal load website");
+
+            driver.Quit();
+
+        }    
+
+        [Test]
+        public void SlowLoadWebpage()
+        {
+            var driver = new ChromeDriver();
+            driver.Manage().Window.Maximize();
+            driver.Url = "https://curso.testautomation.es";
+            var slowLoadDriver = driver.FindElement(By.Id("SlowLoadWeb"));
+            slowLoadDriver.Click();
+            Thread.Sleep(2500);
+            var titulo = driver.FindElement(By.Id("title"));
+
+            titulo.Text.Should().Be("Slow load website");
+
+            driver.Quit();
+        }
+
+        [Test]
+        public void SlowTextWebpage()
+        {
+            var driver = new ChromeDriver();
+            driver.Manage().Window.Maximize();
+            driver.Url = "https://curso.testautomation.es";
+            var slowTextWebpage = driver.FindElement(By.Id("SlowSpeedTextWeb"));
+            slowTextWebpage.Click();
+            Thread.Sleep(2500);
+            var titulo = driver.FindElement(By.Id("title"));
+
+            titulo.Text.Should().Be("Slow load website");
+
+            driver.Quit();
+
+        }
+
+    }
+}
